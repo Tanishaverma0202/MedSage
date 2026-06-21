@@ -4,7 +4,8 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import {defineConfig, loadEnv} from 'vite';
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 export default defineConfig(({mode}) => {
   const env = loadEnv(mode, '.', '');
@@ -14,6 +15,7 @@ export default defineConfig(({mode}) => {
       alias: {
         '@': path.resolve(__dirname, './src'),
       },
+      extensions: ['.mjs', '.js', '.ts', '.jsx', '.tsx', '.json']
     },
     server: {
       // HMR is disabled in AI Studio via DISABLE_HMR env var.
