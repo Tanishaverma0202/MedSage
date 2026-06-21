@@ -17,6 +17,9 @@ COPY src/ ./src/
 # Install dependencies
 RUN npm ci
 
+# Verify key files exist before build
+RUN ls -la /app/vite.config.ts && ls -la /app/tsconfig.json && ls -la /app/src/lib/utils.ts
+
 # Build TypeScript
 RUN npm run build
 RUN npm prune --omit=dev
