@@ -53,11 +53,14 @@ const logger = createLogger({
 
 const MONGODB_URI = process.env.MONGODB_URI;
 
-if (!MONGODB_URI) {
-  throw new Error("MONGODB_URI is not defined in environment variables");
-}
-
 const connectDB = async (): Promise<boolean> => {
+  if (!MONGODB_URI) {
+    logger.error('MONGODB_URI is not defined in environment variables');
+    console.error('ERROR: MONGODB_URI is not defined in environment variables. Please set it in Railway.');
+    logger.warn('Running in DEMO MODE - Data will not be persisted');
+    return false;
+  }
+
   try {
     console.log('🔌 DATABASE: Connecting to:', MONGODB_URI);
     const conn = await mongoose.connect(MONGODB_URI, {
