@@ -17,9 +17,6 @@ COPY src/ ./src/
 # Install dependencies
 RUN npm ci
 
-# Verify key files exist before build
-RUN ls -la /app/vite.config.ts && ls -la /app/tsconfig.json && ls -la /app/src/lib/utils.ts
-
 # Build TypeScript
 RUN npm run build
 RUN npm prune --omit=dev
@@ -28,9 +25,6 @@ RUN npm prune --omit=dev
 FROM node:20-alpine
 
 WORKDIR /app
-
-# Install dumb-init to handle signals properly
-RUN apk add --no-cache dumb-init
 
 # Copy from builder
 COPY --from=builder /app/node_modules ./node_modules
@@ -52,8 +46,5 @@ EXPOSE 3000
 HEALTHCHECK --interval=30s --timeout=10s --start-period=40s --retries=3 \
     CMD node -e "require('http').get('http://localhost:3000/api/v1/health', (r) => {if (r.statusCode !== 200) throw new Error(r.statusCode)})"
 
-# Use dumb-init to run Node process
-ENTRYPOINT ["/sbin/dumb-init", "--"]
-
-# Start backend server
-CMD ["node", "--import", "tsx", "backend/server.ts"]
+# Start backend
+CMD ["node", "--es-module-specifiers=explicit", "dist/backend/server.js"]
