@@ -1,23 +1,26 @@
 # Multi-stage build for MedSage Backend
 # Stage 1: Build stage
-FROM node:18-alpine AS builder
+FROM node:20-alpine AS builder
 
 WORKDIR /app
 
 # Copy package files
 COPY package*.json ./
 COPY tsconfig.json ./
+COPY index.html ./
+COPY public/ ./public/
 COPY backend/ ./backend/
 COPY src/ ./src/
 
 # Install dependencies
-RUN npm ci --only=production
+RUN npm ci
 
 # Build TypeScript
-RUN npm run build 2>&1 || echo "Note: Build may have warnings"
+RUN npm run build
+RUN npm prune --omit=dev
 
 # Stage 2: Runtime stage
-FROM node:18-alpine
+FROM node:20-alpine
 
 WORKDIR /app
 
@@ -48,4 +51,4 @@ HEALTHCHECK --interval=30s --timeout=10s --start-period=40s --retries=3 \
 ENTRYPOINT ["/sbin/dumb-init", "--"]
 
 # Start backend server
-CMD ["node", "--loader", "tsx", "backend/server.ts"]
+CMD ["node", "--import", "tsx", "backend/server.ts"]
