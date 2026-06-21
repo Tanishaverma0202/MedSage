@@ -1,11 +1,16 @@
 // API Configuration for Frontend
 const envApiUrl = import.meta.env.VITE_API_URL;
-const API_BASE_URL = envApiUrl || 'http://localhost:3000';
+const normalizedApiUrl = envApiUrl ? envApiUrl.replace(/\/+$|^\s+|\s+$/g, '') : '';
+const API_BASE_URL = normalizedApiUrl || 'http://localhost:3000';
 
 if (!envApiUrl && typeof window !== 'undefined' && !['localhost', '127.0.0.1'].includes(window.location.hostname)) {
   console.warn(
     '[MedSage] VITE_API_URL is not defined. The deployed frontend is falling back to http://localhost:3000.\n' +
     'Set VITE_API_URL in Vercel environment variables to your Railway backend URL.'
+  );
+} else if (envApiUrl?.includes('<your-railway-backend>')) {
+  console.error(
+    '[MedSage] VITE_API_URL contains a placeholder value. Replace it with the real Railway backend URL.'
   );
 }
 
