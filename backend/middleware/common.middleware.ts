@@ -264,7 +264,9 @@ export const securityMiddleware = [
         'http://127.0.0.1:59667'
       ].filter(Boolean) as string[];
 
-      if (!origin || allowedOrigins.includes(origin)) {
+      const isVercelOrigin = typeof origin === 'string' && origin.endsWith('.vercel.app');
+
+      if (!origin || allowedOrigins.includes(origin) || isVercelOrigin) {
         callback(null, true);
       } else {
         callback(new Error(`CORS policy: Origin ${origin} not allowed`));
