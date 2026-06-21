@@ -1,0 +1,50 @@
+﻿
+{"length":556,"level":"inf
+o","message":"ðŸ½ï¸ RAW 
+AI suggestions 
+text:","preview":"{\n    
+\"name\": \"Vegetable 
+Biryani\",\n    
+\"description\": \"A 
+flavorful and nutritious 
+Indian-style rice dish 
+packed with mixed 
+vegetables.\",\n    
+\"calories\": 420,\n    
+\"protein\": 15,\n    
+\"carbs\": 60,\n    \"f","
+service":"medsage-backend"
+,"timestamp":"2026-04-03 
+10:17:28"}
+{"level":"info","message":
+"127.0.0.1 - - 
+[03/Apr/2026:04:47:28 
++0000] \"POST 
+/api/v1/nutrition/recipe 
+HTTP/1.1\" 200 42 \"-\" 
+\"Mozilla/5.0 (Windows NT 
+10.0; Win64; x64) 
+AppleWebKit/537.36 
+(KHTML, like Gecko) 
+Chrome/146.0.0.0 Safari/53
+7.36\"","service":"medsage
+-backend","timestamp":"202
+6-04-03 10:17:28"}
+{"duration":"17360ms","ip"
+:"127.0.0.1","level":"info
+","message":"HTTP Request"
+,"method":"POST","path":"/
+api/v1/nutrition/recipe","
+requestId":"req_1775191631
+174_2hoyb0zul","service":"
+medsage-backend","statusCo
+de":200,"timestamp":"2026-
+04-03 10:17:28","userAgent
+":"Mozilla/5.0 (Windows 
+NT 10.0; Win64; x64) 
+AppleWebKit/537.36 
+(KHTML, like Gecko) 
+Chrome/146.0.0.0 
+Safari/537.36"}
+
+

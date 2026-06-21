@@ -1,0 +1,79 @@
+﻿
+{"duration":"1ms","ip":"12
+7.0.0.1","level":"info","m
+essage":"HTTP Request","me
+thod":"GET","path":"/src/c
+omponents/ErrorBoundary.ts
+x","requestId":"req_177519
+0902099_6dnqkgjpc","servic
+e":"medsage-backend","stat
+usCode":304,"timestamp":"2
+026-04-03 10:05:02","userA
+gent":"Mozilla/5.0 
+(Windows NT 10.0; Win64; 
+x64) AppleWebKit/537.36 
+(KHTML, like Gecko) 
+Chrome/146.0.0.0 
+Safari/537.36"}
+{"level":"info","message":
+"127.0.0.1 - - 
+[03/Apr/2026:04:35:22 
++0000] \"GET /src/componen
+ts/ErrorBoundary.tsx 
+HTTP/1.1\" 304 - \"-\" 
+\"Mozilla/5.0 (Windows NT 
+10.0; Win64; x64) 
+AppleWebKit/537.36 
+(KHTML, like Gecko) 
+Chrome/146.0.0.0 Safari/53
+7.36\"","service":"medsage
+-backend","timestamp":"202
+6-04-03 10:05:22"}
+{"duration":"1ms","ip":"12
+7.0.0.1","level":"info","m
+essage":"HTTP Request","me
+thod":"GET","path":"/src/c
+omponents/ErrorBoundary.ts
+x","requestId":"req_177519
+0922069_7t9afi96m","servic
+e":"medsage-backend","stat
+usCode":304,"timestamp":"2
+026-04-03 10:05:22","userA
+gent":"Mozilla/5.0 
+(Windows NT 10.0; Win64; 
+x64) AppleWebKit/537.36 
+(KHTML, like Gecko) 
+Chrome/146.0.0.0 
+Safari/537.36"}
+{"level":"info","message":
+"127.0.0.1 - - 
+[03/Apr/2026:04:36:05 
++0000] \"GET /src/componen
+ts/ErrorBoundary.tsx 
+HTTP/1.1\" 304 - \"-\" 
+\"Mozilla/5.0 (Windows NT 
+10.0; Win64; x64) 
+AppleWebKit/537.36 
+(KHTML, like Gecko) 
+Chrome/146.0.0.0 Safari/53
+7.36\"","service":"medsage
+-backend","timestamp":"202
+6-04-03 10:06:05"}
+{"duration":"6ms","ip":"12
+7.0.0.1","level":"info","m
+essage":"HTTP Request","me
+thod":"GET","path":"/src/c
+omponents/ErrorBoundary.ts
+x","requestId":"req_177519
+0965670_zx46jgotn","servic
+e":"medsage-backend","stat
+usCode":304,"timestamp":"2
+026-04-03 10:06:05","userA
+gent":"Mozilla/5.0 
+(Windows NT 10.0; Win64; 
+x64) AppleWebKit/537.36 
+(KHTML, like Gecko) 
+Chrome/146.0.0.0 
+Safari/537.36"}
+
+

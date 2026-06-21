@@ -1,0 +1,82 @@
+version: '3.8'
+
+services:
+  mongodb:
+    image: mongo:7
+    container_name: medsage-mongodb
+    restart: always
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_PASSWORD}
+      MONGO_INITDB_DATABASE: medsage
+    volumes:
+      - mongodb_data:/data/db
+    networks:
+      - medsage-network
+
+  redis:
+    image: redis:7-alpine
+    container_name: medsage-redis
+    restart: always
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - medsage-network
+
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: medsage-backend
+    restart: always
+    ports:
+      - "3000:3000"
+    environment:
+      NODE_ENV: production
+      PORT: 3000
+      MONGODB_URI: mongodb://admin:${MONGO_PASSWORD}@mongodb:27017/medsage?authSource=admin
+      REDIS_URL: redis://redis:6379
+      GOOGLE_AI_API_KEY: ${GOOGLE_AI_API_KEY}
+      JWT_SECRET: ${JWT_SECRET}
+      JWT_REFRESH_SECRET: ${JWT_REFRESH_SECRET}
+      EMAIL_USER: ${EMAIL_USER}
+      EMAIL_PASSWORD: ${EMAIL_PASSWORD}
+      FRONTEND_URL: ${FRONTEND_URL}
+      LOG_LEVEL: info
+    depends_on:
+      - mongodb
+      - redis
+    networks:
+      - medsage-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/api/v1/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  nginx:
+    image: nginx:alpine
+    container_name: medsage-nginx
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./ssl:/etc/nginx/ssl:ro
+    depends_on:
+      - backend
+    networks:
+      - medsage-network
+
+volumes:
+  mongodb_data:
+  redis_data:
+
+networks:
+  medsage-network:
+    driver: bridge

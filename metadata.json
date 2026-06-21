@@ -1,0 +1,5 @@
+{
+  "name": "MedSage",
+  "description": "A personalized AI-powered health ecosystem integrating nutrition, fitness, mental health, hormonal tracking, and medical report analysis.",
+  "requestFramePermissions": []
+}
