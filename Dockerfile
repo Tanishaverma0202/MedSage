@@ -1,30 +1,37 @@
 # Multi-stage build for MedSage Backend
 # Stage 1: Build stage
-FROM node:18-alpine AS builder
+FROM node:20-alpine AS builder
 
 WORKDIR /app
 
-# Copy package files
+# Copy package files first for better caching
 COPY package*.json ./
+
+# Install ALL dependencies (including devDependencies for build tools)
+RUN npm ci
+
+# Copy all source files needed for the build
 COPY tsconfig.json ./
+COPY index.html ./
 COPY backend/ ./backend/
 COPY src/ ./src/
+COPY public/ ./public/
 
-# Install dependencies
-RUN npm ci --only=production
+# Build TypeScript and Vite frontend
+RUN npm run build
 
-# Build TypeScript
-RUN npm run build 2>&1 || echo "Note: Build may have warnings"
+# Prune devDependencies for the runtime image
+RUN npm prune --omit=dev
 
 # Stage 2: Runtime stage
-FROM node:18-alpine
+FROM node:20-alpine
 
 WORKDIR /app
 
 # Install dumb-init to handle signals properly
 RUN apk add --no-cache dumb-init
 
-# Copy from builder
+# Copy production node_modules and build output from builder
 COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/package*.json ./
 COPY --from=builder /app/dist ./dist
@@ -48,4 +55,5 @@ HEALTHCHECK --interval=30s --timeout=10s --start-period=40s --retries=3 \
 ENTRYPOINT ["/sbin/dumb-init", "--"]
 
 # Start backend server
-CMD ["node", "--loader", "tsx", "backend/server.ts"]
+CMD ["node", "--import", "tsx", "backend/server.ts"]
+
